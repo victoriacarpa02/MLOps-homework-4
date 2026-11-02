@@ -53,8 +53,16 @@ def read_data(filename):
 # In[6]:
 
 
-year = 2023
-month = 3
+import argparse
+
+parser = argparse.ArgumentParser(description="Predict taxi trip duration")
+parser.add_argument("year", type=int)
+parser.add_argument("month", type=int, choices=range(1, 13))
+
+args = parser.parse_args()
+
+year = args.year
+month = args.month
 
 input_file = (
     "https://d37ci6vzurychx.cloudfront.net/trip-data/"
@@ -81,6 +89,7 @@ y_pred = model.predict(X_val)
 print("Period:", f"{year:04d}-{month:02d}")
 print("Predictions:", len(y_pred))
 print("Q1 standard deviation:", y_pred.std())
+print("Mean predicted duration:", y_pred.mean())
 
 
 # In[9]:
